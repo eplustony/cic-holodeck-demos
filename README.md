@@ -1,2 +1,2 @@
 # cic-holodeck-demos
-# cic-holodeck-demos
+For internal demo use only
