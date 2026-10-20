@@ -10,6 +10,8 @@ spec:
     metadata:
       labels: {app: podinfo}
     spec:
+      imagePullSecrets:
+      - name: harbor-pull
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
