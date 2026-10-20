@@ -19,10 +19,10 @@ spec:
           type: RuntimeDefault
       containers:
       - name: podinfo
-        image: depot.kube-system.svc/demos/podinfo:6.7.0
+        image: depot.kube-system.svc/demos/podinfo:6.7.1
         ports: [{containerPort: 9898}]
         env:
-        - {name: PODINFO_UI_MESSAGE, value: "Hello from VCF"}
+        - {name: PODINFO_UI_MESSAGE, value: "Something else"}
         - {name: PODINFO_UI_COLOR, value: "#1d428a"}
         securityContext:
           allowPrivilegeEscalation: false
