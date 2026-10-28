@@ -40,6 +40,7 @@ variable "vpc" {
 variable "namespace_class" {
   description = "Namespace class to build the new namespace from (Manage & Govern > Namespace Class)"
   type        = string
+  default     = "small"
 }
 
 # Existing objects the demo reuses (nothing new is built for these)

@@ -11,7 +11,6 @@ One `terraform apply`, three beats:
 
 ```bash
 cd cic-holodeck-demos/terraform
-cp terraform.tfvars.example terraform.tfvars   # set namespace_class
 export VCFA_API_TOKEN='<Org portal > user menu > API Tokens>'
 terraform init
 terraform plan

@@ -1,2 +1,2 @@
-# Copy to terraform.tfvars and fill in. Everything else has lab defaults in variables.tf.
-namespace_class = "<a namespace class from Manage & Govern > Namespace Class>"
+# Optional: copy to terraform.tfvars to override any lab default in variables.tf.
+# namespace_class = "small"
