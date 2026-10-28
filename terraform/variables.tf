@@ -55,6 +55,12 @@ variable "zone_memory_limit" {
   default     = "4Gi"
 }
 
+variable "storage_limit" {
+  description = "Storage limit for the new namespace (Mi, Gi or Ti)"
+  type        = string
+  default     = "10Gi"
+}
+
 variable "namespace_class" {
   description = "Namespace class to build the new namespace from (Manage & Govern > Namespace Class)"
   type        = string
