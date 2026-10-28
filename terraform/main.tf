@@ -9,6 +9,15 @@ resource "vcfa_supervisor_namespace" "demo" {
   region_name  = var.region
   vpc_name     = var.vpc
   description  = "Created by Terraform (cic-holodeck-demos/terraform)"
+
+  # The "small" class doesn't pin a zone, so name one here with small limits
+  zones_class_config_overrides {
+    name               = var.zone
+    cpu_limit          = var.zone_cpu_limit
+    cpu_reservation    = "0M"
+    memory_limit       = var.zone_memory_limit
+    memory_reservation = "0Mi"
+  }
 }
 
 # =============================================================================

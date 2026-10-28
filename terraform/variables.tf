@@ -37,6 +37,24 @@ variable "vpc" {
   default = "default-us-west-a"
 }
 
+variable "zone" {
+  description = "vSphere Zone for the new namespace (Supervisor > Zones)"
+  type        = string
+  default     = "zone-mgmt-a"
+}
+
+variable "zone_cpu_limit" {
+  description = "CPU limit for the new namespace in that zone (M = MHz)"
+  type        = string
+  default     = "2000M"
+}
+
+variable "zone_memory_limit" {
+  description = "Memory limit for the new namespace in that zone"
+  type        = string
+  default     = "4Gi"
+}
+
 variable "namespace_class" {
   description = "Namespace class to build the new namespace from (Manage & Govern > Namespace Class)"
   type        = string
