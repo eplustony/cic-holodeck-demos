@@ -1,0 +1,63 @@
+# =============================================================================
+# 1. IaC against VCF Automation: a new vSphere Namespace in default-project.
+#    Same object as Project > Namespaces > New Namespace in the Org portal.
+# =============================================================================
+resource "vcfa_supervisor_namespace" "demo" {
+  name_prefix  = "tf-demo"
+  project_name = var.project
+  class_name   = var.namespace_class
+  region_name  = var.region
+  vpc_name     = var.vpc
+  description  = "Created by Terraform (cic-holodeck-demos/terraform)"
+}
+
+# =============================================================================
+# 2. Read the existing VKS cluster - nothing new is deployed.
+# =============================================================================
+data "vcfa_vks_cluster" "existing" {
+  name = var.vks_cluster
+  context = {
+    project   = var.project
+    namespace = var.existing_namespace
+  }
+}
+
+# =============================================================================
+# 3. Hand the app to GitOps: Terraform registers an Argo CD Application,
+#    Argo CD deploys podinfo from Git onto acme-vks-01.
+#    Terraform owns "where it runs"; Git owns "what runs".
+# =============================================================================
+resource "kubernetes_manifest" "argo_app" {
+  provider = kubernetes.supervisor_ns
+
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "Application"
+    metadata = {
+      name      = var.app_name
+      namespace = var.existing_namespace
+      labels = {
+        "managed-by" = "terraform"
+      }
+    }
+    spec = {
+      project = "default"
+      source = {
+        repoURL        = var.git_repo
+        path           = var.git_path
+        targetRevision = "HEAD"
+      }
+      destination = {
+        server    = var.argocd_destination_server
+        namespace = var.app_name
+      }
+      syncPolicy = {
+        automated = {
+          prune    = true
+          selfHeal = true
+        }
+        syncOptions = ["CreateNamespace=true"]
+      }
+    }
+  }
+}
