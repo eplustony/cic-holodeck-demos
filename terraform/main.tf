@@ -18,7 +18,7 @@ resource "vcfa_supervisor_namespace" "demo" {
 
   # The "small" class doesn't pin a storage class or zone, so set both here
   storage_classes_class_config_overrides {
-    name  = data.vcfa_supervisor_namespace.existing.storage_classes[0].name
+    name  = tolist(data.vcfa_supervisor_namespace.existing.storage_classes)[0].name
     limit = var.storage_limit
   }
 
